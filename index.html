@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PULXO CALCULATOR</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="calculator">
+            <h1>Premium Calculator</h1>
+            <div class="tabs">
+                <button class="tab-button active" data-tab="temperature">
+                    <i data-lucide="thermometer"></i>
+                    Temperature
+                </button>
+                <button class="tab-button" data-tab="weight">
+                    <i data-lucide="weight"></i>
+                    Weight
+                </button>
+                <button class="tab-button" data-tab="distance">
+                    <i data-lucide="ruler"></i>
+                    Distance
+                </button>
+            </div>
+            <div class="tab-content active" id="temperature">
+                <h2>Celsius to Fahrenheit</h2>
+                <input type="number" id="celsius" placeholder="Enter Celsius">
+                <div class="arrow">→</div>
+                <input type="text" id="fahrenheit" placeholder="Fahrenheit" readonly>
+            </div>
+            <div class="tab-content" id="weight">
+                <h2>Kilograms to Pounds</h2>
+                <input type="number" id="kg" placeholder="Enter Kilograms">
+                <div class="arrow">→</div>
+                <input type="text" id="pounds" placeholder="Pounds" readonly>
+            </div>
+            <div class="tab-content" id="distance">
+                <h2>Kilometers to Miles</h2>
+                <input type="number" id="km" placeholder="Enter Kilometers">
+                <div class="arrow">→</div>
+                <input type="text" id="miles" placeholder="Miles" readonly>
+            </div>
+        </div>
+    </div>
+    <script>
+        lucide.createIcons();
+
+        function celsiusToFahrenheit(celsius) {
+            return (celsius * 9/5) + 32;
+        }
+
+        function kgToPounds(kg) {
+            return kg * 2.20462;
+        }
+
+        function kmToMiles(km) {
+            return km * 0.621371;
+        }
+
+        document.getElementById('celsius').addEventListener('input', function() {
+            const celsius = parseFloat(this.value);
+            const fahrenheit = celsiusToFahrenheit(celsius);
+            document.getElementById('fahrenheit').value = isNaN(fahrenheit) ? '' : fahrenheit.toFixed(2);
+        });
+
+        document.getElementById('kg').addEventListener('input', function() {
+            const kg = parseFloat(this.value);
+            const pounds = kgToPounds(kg);
+            document.getElementById('pounds').value = isNaN(pounds) ? '' : pounds.toFixed(2);
+        });
+
+        document.getElementById('km').addEventListener('input', function() {
+            const km = parseFloat(this.value);
+            const miles = kmToMiles(km);
+            document.getElementById('miles').value = isNaN(miles) ? '' : miles.toFixed(2);
+        });
+
+        const tabButtons = document.querySelectorAll('.tab-button');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const tab = button.dataset.tab;
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                tabContents.forEach(content => content.classList.remove('active'));
+                button.classList.add('active');
+                document.getElementById(tab).classList.add('active');
+            });
+        });
+    </script>
+  <footer><footer>CREATED BY PULXO AKA GRISHM MAHORKAR❤️</footer>
+</footer>
+</body>
+</html>
